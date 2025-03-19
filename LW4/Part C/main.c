@@ -1,7 +1,7 @@
 /*
- * Part_1_a.c
+ * Part C.c
  *
- * Created: 17.03.2025 17:41:03
+ * Created: 19.03.2025 11:52:43
  * Author : User
  */ 
 
@@ -10,8 +10,7 @@
 
 int main(void)
 {
-    DDRB |= (1 << PINB4);
-	PORTB |= (1 << PINB4);
+    /* Replace with your application code */
     while (1) 
     {
     }

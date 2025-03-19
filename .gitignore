@@ -1,10 +1,12 @@
-/LW2/C/Debug
+/LW2/ASM/.vs
 /LW2/ASM/Debug
-/LW3/P1A/Debug
-/LW3/P1B/Debug
-/LW2/.vs
-/LW3/.vs
-*.cproj
-*.xml
-*.asmproj
+/LW4/Part A/Debug
+/LW4/Part B/Debug
 *.atsln
+*.asmproj
+*.xml
+/LW2/С/.vs
+/LW4/Part A/.vs
+/LW4/Part B/.vs
+/LW4/Part C/.vs
+*.cproj

@@ -1,10 +1,4 @@
-/*
- * C.c
- *
- * Created: 10.03.2025 16:49:34
- * Author : User
- */ 
-
+#define F_CPU 16000000UL
 #include <avr/io.h>
 #include <util/delay.h>
 
