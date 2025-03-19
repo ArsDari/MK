@@ -1,0 +1,10 @@
+/LW2/C/Debug
+/LW2/ASM/Debug
+/LW3/P1A/Debug
+/LW3/P1B/Debug
+/LW2/.vs
+/LW3/.vs
+*.cproj
+*.xml
+*.asmproj
+*.atsln
