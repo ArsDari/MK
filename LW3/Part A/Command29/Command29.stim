@@ -1,0 +1,12 @@
+$log OCR0A
+$log SREG
+$startlog Check.txt
+#1
+OCR0A = 255
+#5
+OCR0A = 0
+#5
+OCR0A = 128
+#5
+$stoplog
+$break
