@@ -1,0 +1,12 @@
+#6
+SREG = 0x10
+#1
+OCR0A = 0x0f
+#5
+SREG = 0x00
+#1
+OCR0A = 0xf0
+#6
+SREG = 0x10
+#1
+OCR0A = 0x0f
