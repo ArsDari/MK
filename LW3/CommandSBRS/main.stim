@@ -1,0 +1,5 @@
+$log OCR0A
+$startlog output.txt
+#21
+$stoplog
+$break

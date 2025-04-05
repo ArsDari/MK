@@ -1,6 +1,0 @@
-$log OCR0A
-$log SREG
-$startlog Check.txt
-#23
-$stoplog
-$break

@@ -1,0 +1,6 @@
+$log OCR0A
+$log SREG
+$startlog output.txt
+#23
+$stoplog
+$break

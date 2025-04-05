@@ -1,0 +1,14 @@
+#1
+OCR0A = 0x80
+#1
+SREG = 0x14
+#4
+OCR0A = 0xff
+#5
+OCR0A = 0x00
+#1
+SREG = 0x02
+#4
+OCR0A = 0x01
+#1
+SREG = 0x00
