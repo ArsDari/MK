@@ -1,12 +1,9 @@
-;
-; InsertSort.asm
-;
-; Created: 05.04.2025 16:06:05
-; Author : User
-;
+.dseg
 
+element: .BYTE 4
 
-; Replace with your application code
+.cseg
+
 start:
-    inc r16
-    rjmp start
+	inc r16
+	rjmp start
