@@ -30,7 +30,7 @@ void OneWire_Send_1_0(uint8_t bit)
     {
         SET_0_WIRE;
         _delay_us(90);
-        SET_1_WIRE
+        SET_1_WIRE;
     }
 }
 

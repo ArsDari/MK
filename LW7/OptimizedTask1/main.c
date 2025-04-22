@@ -26,31 +26,44 @@ int main(void)
     InitLCD();
     sei();
     SendString("Hello\r\n");
-    LCD_Write(DATA, 'T');
-    LCD_Write(DATA, '=');
-    LCD_Write(DATA, 0x20);
-    LCD_Write(CMD, 0x40 | 0x80);
-    LCD_Write(DATA, 'V');
-    LCD_Write(DATA, 'a');
-    LCD_Write(DATA, 'l');
-    LCD_Write(DATA, 'u');
-    LCD_Write(DATA, 'e');
-    LCD_Write(DATA, '=');
-    LCD_Write(DATA, 0x20);
+	LCD_SendString("T= ");
+    //LCD_Write(DATA, 'T');
+    //LCD_Write(DATA, '=');
+    //LCD_Write(DATA, 0x20);
+    LCD_SetLine1();
+	//LCD_Write(CMD, 0x40 | 0x80);
+	LCD_SendString("Value= ");
+    //LCD_Write(DATA, 'V');
+    //LCD_Write(DATA, 'a');
+    //LCD_Write(DATA, 'l');
+    //LCD_Write(DATA, 'u');
+    //LCD_Write(DATA, 'e');
+    //LCD_Write(DATA, '=');
+    //LCD_Write(DATA, 0x20);
     OneWire_Init();
     OneWire_SendByte(0xCC); // Skip ROM
     OneWire_SendByte(0x4E); // Write scratchpad
     OneWire_SendByte(0x00); // TH
     OneWire_SendByte(0x00); // TL
     OneWire_SendByte(0x3F); // config
+	
+	char sbuf[17];
+	
     while(1)
     {
         Bin2Dec(ADC_val);
-        LCD_Write(CMD, 0x47 | 0x80);
-        LCD_Write(DATA, 0x30 + bcd_buffer[3]);
-        LCD_Write(DATA, 0x30 + bcd_buffer[2]);
-        LCD_Write(DATA, 0x30 + bcd_buffer[1]);
-        LCD_Write(DATA, 0x30 + bcd_buffer[0]);
+		LCD_SetLine0();
+		sbuf[0] = 0x30 + bcd_buffer[3];
+		sbuf[1] = 0x30 + bcd_buffer[2];
+		sbuf[2] = 0x30 + bcd_buffer[1];
+		sbuf[3] = 0x30 + bcd_buffer[0];
+		sbuf[4] = 0;
+		LCD_SendString(sbuf);
+        //LCD_Write(CMD, 0x47 | 0x80);
+        //LCD_Write(DATA, 0x30 + bcd_buffer[3]);
+        //LCD_Write(DATA, 0x30 + bcd_buffer[2]);
+        //LCD_Write(DATA, 0x30 + bcd_buffer[1]);
+        //LCD_Write(DATA, 0x30 + bcd_buffer[0]);
         OneWire_Init();
         OneWire_SendByte(0xCC); // Skip ROM
         OneWire_SendByte(0x44); // Convert T

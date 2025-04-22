@@ -101,3 +101,21 @@ char LCD_Read(void)
     PORTB = 0;
     return retval;
 }
+
+void LCD_SendString(char *str)
+{
+	while (*str != 0)
+	{
+		LCD_Write(DATA, *str++);
+	}
+}
+
+void LCD_SetLine0()
+{
+	LCD_Write(CMD, 0x47 | 0x80);
+}
+
+void LCD_SetLine1()
+{
+	LCD_Write(CMD, 0x40 | 0x80);
+}

@@ -16,9 +16,13 @@
 #define RW PINB6
 #define E PINB7
 #define CMD 0
+#define DATA 1
 
 void InitLCD(void);
 void LCD_Write(uint8_t type, char data);
 char LCD_Read(void);
+void LCD_SendString(char *str);
+void LCD_SetLine0();
+void LCD_SetLine1();
 
 #endif
