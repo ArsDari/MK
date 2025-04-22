@@ -15,6 +15,10 @@ Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Task5", "Task5\Task5.cproj"
 EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Counter", "Counter\Counter.cproj", "{9CAAAC05-7828-45CE-B1E1-272DF5301BE0}"
 EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "OptimizedTask1", "OptimizedTask1\OptimizedTask1.cproj", "{A25F5500-029D-4100-A43F-64901C8A3081}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "OptimizedTask3", "OptimizedTask3\OptimizedTask3.cproj", "{84BAF7EA-CC9B-4019-A0D3-B590384136D0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|AVR = Debug|AVR
@@ -45,6 +49,14 @@ Global
 		{9CAAAC05-7828-45CE-B1E1-272DF5301BE0}.Debug|AVR.Build.0 = Debug|AVR
 		{9CAAAC05-7828-45CE-B1E1-272DF5301BE0}.Release|AVR.ActiveCfg = Release|AVR
 		{9CAAAC05-7828-45CE-B1E1-272DF5301BE0}.Release|AVR.Build.0 = Release|AVR
+		{A25F5500-029D-4100-A43F-64901C8A3081}.Debug|AVR.ActiveCfg = Debug|AVR
+		{A25F5500-029D-4100-A43F-64901C8A3081}.Debug|AVR.Build.0 = Debug|AVR
+		{A25F5500-029D-4100-A43F-64901C8A3081}.Release|AVR.ActiveCfg = Release|AVR
+		{A25F5500-029D-4100-A43F-64901C8A3081}.Release|AVR.Build.0 = Release|AVR
+		{84BAF7EA-CC9B-4019-A0D3-B590384136D0}.Debug|AVR.ActiveCfg = Debug|AVR
+		{84BAF7EA-CC9B-4019-A0D3-B590384136D0}.Debug|AVR.Build.0 = Debug|AVR
+		{84BAF7EA-CC9B-4019-A0D3-B590384136D0}.Release|AVR.ActiveCfg = Release|AVR
+		{84BAF7EA-CC9B-4019-A0D3-B590384136D0}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

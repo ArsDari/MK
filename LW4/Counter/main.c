@@ -1,4 +1,4 @@
-#define F_CPU 1000000UL
+#define F_CPU 16000000UL
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
@@ -24,6 +24,9 @@ ISR(INT0_vect)
 		counter++;
 	else
 		counter = 0;
+
+	PORTB = segments[counter % 10];
+	PORTC = segments[counter / 10];
 }
 
 int main(void)
@@ -36,7 +39,6 @@ int main(void)
 	sei();
 	while (1)
 	{
-		PORTB = segments[counter % 10];
-		PORTC = segments[counter / 10];
+
 	}
 }
