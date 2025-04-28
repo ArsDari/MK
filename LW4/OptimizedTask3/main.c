@@ -8,9 +8,9 @@ int main(void)
 	PORTB |= (1 << PINB7);
 	while (1)
 	{
-		for (int i = 0; i < 6; i++)
+		for (uint8_t i = 0; i < 6; i++)
 		{
-			if ((PINB7 & ~PORTB) != 0)
+			if ((PINB & (1 << PINB7)) != 0)
 				PORTB = (1 << i);
 			else
 				PORTB = (0x20 >> i);

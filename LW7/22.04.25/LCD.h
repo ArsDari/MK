@@ -18,11 +18,15 @@
 #define CMD 0
 #define DATA 1
 
+#define SET_DATA_OUT D_DDR |=
+#define SET_DATA_IN D_DDR &= ~()
+
+#define CLEAR_DATA = 0xF0
+
 void InitLCD(void);
 void LCD_Write(uint8_t type, char data);
 char LCD_Read(void);
 void LCD_SendString(char *str);
-void LCD_SendBuffer(uint8_t *p, uint8_t count);
 void LCD_SetPosition(uint8_t x, uint8_t y);
 
 #endif

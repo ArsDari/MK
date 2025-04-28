@@ -21,9 +21,9 @@ int main(void)
 	DDRB = 0xFF;
 	DDRD &= ~(1 << PIND2);
 	PORTD |= (1 << PIND2);
-	int button = 0;
-	int switch_state = 0;
-	int counter = 0;
+	uint8_t button = 0;
+	uint8_t switch_state = 0;
+	uint8_t counter = 0;
 	while (1)
 	{
 		button = PIND & (1 << PIND2);
@@ -44,17 +44,10 @@ int main(void)
 		}
 		if (switch_state == 0)
 		{
-			if (counter < 10)
-			{
-				PORTB = segments[counter++];
-				_delay_ms(1000);
-			}
-			else
-			{
+			if (counter > 9)
 				counter = 0;
-				PORTB = segments[counter++];
-				_delay_ms(1000);
-			}
+			PORTB = segments[counter++];
+			_delay_ms(1000);
 		}
 	}
 }

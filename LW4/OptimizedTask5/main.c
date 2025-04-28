@@ -17,9 +17,9 @@ uint8_t segments[] =
 	0b01101111
 };
 
-volatile int button = 0;
-volatile int switch_state = 0;
-volatile int counter = 0;
+volatile uint8_t button = 0;
+volatile uint8_t switch_state = 0;
+volatile uint8_t counter = 0;
 
 ISR(INT0_vect)
 {
@@ -45,19 +45,10 @@ int main(void)
 	{
 		if (switch_state == 0)
 		{
-			if (counter < 10)
-			{
-				PORTB = segments[counter];
-				counter += 1;
-				_delay_ms(500);
-			}
-			else
-			{
+			if (counter > 9)
 				counter = 0;
-				PORTB = segments[counter];
-				counter += 1;
-				_delay_ms(500);
-			}
+			PORTB = segments[counter++];
+			_delay_ms(500);
 		}
 	}
 }

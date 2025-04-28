@@ -4,26 +4,26 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>7.0</ProjectVersion>
     <ToolchainName>com.Atmel.AVRAssembler</ToolchainName>
-    <ProjectGuid>{1fe53c96-c89a-43df-9f9d-4ed36e9f36ee}</ProjectGuid>
+    <ProjectGuid>{4f90a88e-048c-4c1a-b3dd-897ae488b509}</ProjectGuid>
     <avrdeviceseries>none</avrdeviceseries>
     <avrdevice>ATmega328P</avrdevice>
     <OutputFileName>$(MSBuildProjectName)</OutputFileName>
     <OutputFileExtension>.obj</OutputFileExtension>
     <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
     <Language>ASSEMBLY</Language>
-    <AssemblyName>AssemblerApplication1</AssemblyName>
-    <Name>AssemblerApplication1</Name>
-    <RootNamespace>AssemblerApplication1</RootNamespace>
+    <AssemblyName>InsertSort_Without_Pointers</AssemblyName>
+    <Name>InsertSort_Without_Pointers</Name>
+    <RootNamespace>InsertSort_Without_Pointers</RootNamespace>
     <ToolchainFlavour>Native</ToolchainFlavour>
     <EntryFile>$(MSBuildProjectDirectory)\main.asm</EntryFile>
     <KeepTimersRunning>true</KeepTimersRunning>
     <OverrideVtor>false</OverrideVtor>
     <CacheFlash>true</CacheFlash>
     <ProgFlashFromRam>true</ProgFlashFromRam>
-    <RamSnippetAddress />
+    <RamSnippetAddress>0x20000000</RamSnippetAddress>
     <UncachedRange />
     <preserveEEPROM>true</preserveEEPROM>
-    <OverrideVtorValue />
+    <OverrideVtorValue>exception_table</OverrideVtorValue>
     <BootSegment>2</BootSegment>
     <ResetRule>0</ResetRule>
     <eraseonlaunchrule>0</eraseonlaunchrule>
@@ -40,6 +40,20 @@
   </dependencies>
 </framework-data>
     </AsfFrameworkConfig>
+    <avrtool>com.atmel.avrdbg.tool.simulator</avrtool>
+    <avrtoolserialnumber />
+    <avrdeviceexpectedsignature>0x1E950F</avrdeviceexpectedsignature>
+    <com_atmel_avrdbg_tool_simulator>
+      <ToolOptions xmlns="">
+        <InterfaceProperties>
+        </InterfaceProperties>
+      </ToolOptions>
+      <ToolType xmlns="">com.atmel.avrdbg.tool.simulator</ToolType>
+      <ToolNumber xmlns="">
+      </ToolNumber>
+      <ToolName xmlns="">Simulator</ToolName>
+    </com_atmel_avrdbg_tool_simulator>
+    <StimuliFile>C:\Users\User\GitHub\MK\LW3\InsertSort_Without_Pointers\main.stim</StimuliFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <ToolchainSettings>
@@ -52,6 +66,7 @@
   <avrasm.assembler.general.IncludeFile>m328pdef.inc</avrasm.assembler.general.IncludeFile>
 </AvrAssembler>
     </ToolchainSettings>
+    <OutputType>Executable</OutputType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
@@ -69,6 +84,14 @@
     <Compile Include="main.asm">
       <SubType>Code</SubType>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="main.stim">
+      <SubType>Code</SubType>
+    </None>
+    <None Include="output.txt">
+      <SubType>Code</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Assembler.targets" />
 </Project>

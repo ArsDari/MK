@@ -17,16 +17,11 @@ uint8_t segments[] =
 };
 
 volatile uint8_t counter = 0;
+volatile uint8_t switch_state = 0;
 
 ISR(INT0_vect)
 {
-	if (counter < 15)
-		counter++;
-	else
-		counter = 0;
-
-	PORTB = segments[counter % 10];
-	PORTC = segments[counter / 10];
+	switch_state = 1;
 }
 
 int main(void)
@@ -37,8 +32,16 @@ int main(void)
 	EIMSK |= (1 << INT0); // turn on INT0
 	EICRA |= (1 << ISC01); // set interruptions on rising edge INT0
 	sei();
+	PORTB = segments[0];
+	PORTC = segments[0];
 	while (1)
 	{
-
+		if (switch_state)
+		{
+			switch_state = 0;
+			counter = counter < 15 ? counter + 1 : 0;
+			PORTB = segments[counter % 10];
+			PORTC = segments[counter / 10];
+		}
 	}
 }

@@ -11,6 +11,8 @@ Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "OptimizedTask1", "Optimized
 EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Task3", "Task3\Task3.cproj", "{30A7E87A-AC84-43E8-8C46-D788C81C53B6}"
 EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "IndividualTask", "IndividualTask\IndividualTask.cproj", "{D6286488-A176-4116-9881-78E5819A9B54}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|AVR = Debug|AVR
@@ -33,6 +35,10 @@ Global
 		{30A7E87A-AC84-43E8-8C46-D788C81C53B6}.Debug|AVR.Build.0 = Debug|AVR
 		{30A7E87A-AC84-43E8-8C46-D788C81C53B6}.Release|AVR.ActiveCfg = Release|AVR
 		{30A7E87A-AC84-43E8-8C46-D788C81C53B6}.Release|AVR.Build.0 = Release|AVR
+		{D6286488-A176-4116-9881-78E5819A9B54}.Debug|AVR.ActiveCfg = Debug|AVR
+		{D6286488-A176-4116-9881-78E5819A9B54}.Debug|AVR.Build.0 = Debug|AVR
+		{D6286488-A176-4116-9881-78E5819A9B54}.Release|AVR.ActiveCfg = Release|AVR
+		{D6286488-A176-4116-9881-78E5819A9B54}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,7 +1,3 @@
-import pylightxl as xl
-
-instruction_list = xl.readxl('instructions.xlsx', ws='sheet1')
-
 with open('flash.txt') as file:
     original_machine_code = []
     for machine_code in file.readlines():
@@ -11,4 +7,4 @@ with open('flash.txt') as file:
 
 for instruction in original_machine_code:
     binary_instruction = bin(int(instruction, 16))[2:].rjust(16, '0')
-    #print(instruction, )
+    print(instruction, binary_instruction)

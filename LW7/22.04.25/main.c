@@ -41,10 +41,38 @@ int main(void)
     OneWire_SendByte(0x00); // TL
     OneWire_SendByte(0x3F); // config
 	
-	char sbuf[17];
+	char S_Buf[S_BUF_SIZE];
+	uint8_t LCD_Buf[LCD_BUF_SIZE];
 	
     while(1)
     {
+		switch (rxState)
+		case RX_COMPLETED
+		{
+			if (line)
+				p_Buf = &LCD_Buf[i];
+			else
+				p_Buf = LCD_Buf;
+			
+			uint8_t i = 0;
+			while (rx_Buf[i] != 0)
+			{
+				p_Buf++ = rxBuf[i];
+				i++;
+			}
+			
+			rxState = RX_IDLE;
+			LCD_SetPosition(0, line);
+			LCD_SendBuffer(pBuf, 16);
+		}
+			memcpy(LCD_Buf, rx_Buf, rx_Idx);
+			rx_State = RX_IDLE;
+			LCD_SetPosition(0, 0);
+			LCD_SendBuffer(LCD_Buf, )
+			
+			/* задача переделать SendBuffer вместо присваивания по индексу убрать их вовсе / line равно 1, то смещаем убрать lcdbuf вообщем надо сделать дохуя и больше;;;; как сделать так, чтобы старые строчки поднимались наверх 
+			
+			Скопиравать код Пети, и решить дз: сделать так чтобы первоначальное значение появлялось сверху а потом все прхиодящие уходили вниз*/
         Bin2Dec(ADC_val);
 		LCD_SetPosition(7, 1);
 		sbuf[0] = 0x30 + bcd_buffer[3];

@@ -4,7 +4,7 @@ void InitLCD(void)
 {
     uint8_t BF = 0x80;
     _delay_ms(40);
-    PORTB &= ~(1 << RS);
+    PORTB &= ~(1 << RS); // отправка полубайт поменять
     PORTB = (0x30 >> 4);
     PORTB |= (1 << E);
     asm("nop");
@@ -53,6 +53,10 @@ void InitLCD(void)
     LCD_Write(CMD, 0x28); //2 строки, 5*8
     LCD_Write(CMD, 0x0C); //display on, cursor on
     LCD_Write(CMD, 0x06); //cnt++, shift enabled
+	
+	SET_CFG_OUT;
+	_delay_ms(15);
+	USART
 }
 
 void LCD_Write(uint8_t type, char data)
@@ -108,11 +112,6 @@ void LCD_SendString(char *str)
 	{
 		LCD_Write(DATA, *str++);
 	}
-}
-
-void LCD_SendBuffer(uint8_t *p, uint8_t count)
-{
-	
 }
 
 void LCD_SetPosition(uint8_t x, uint8_t y)
