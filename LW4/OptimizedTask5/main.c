@@ -2,6 +2,8 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
+#define MASK_BEFORE_PIND2 0x03
+#define MASK_AFTER_PIND2 0xF8
 
 uint8_t segments[] =
 {
@@ -36,8 +38,7 @@ ISR(INT0_vect)
 
 int main(void)
 {
-	DDRB = 0xFF;
-	PORTD |= (1 << PIND2);
+	DDRD = 0xFF & ~(1 << PIND2);
 	EIMSK |= (1 << INT0);
 	EICRA |= (1 << ISC01);
 	sei();
@@ -47,7 +48,8 @@ int main(void)
 		{
 			if (counter > 9)
 				counter = 0;
-			PORTB = segments[counter++];
+			uint8_t dec = segments[counter++];
+			PORTD = ((dec << 1) & MASK_AFTER_PIND2) | (dec & MASK_BEFORE_PIND2);
 			_delay_ms(500);
 		}
 	}

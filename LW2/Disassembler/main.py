@@ -1,3 +1,5 @@
+import json
+
 with open('flash.txt') as file:
     original_machine_code = []
     for machine_code in file.readlines():

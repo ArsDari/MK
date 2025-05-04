@@ -23,6 +23,8 @@ Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "OptimizedTask4", "Optimized
 EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "OptimizedTask5", "OptimizedTask5\OptimizedTask5.cproj", "{77B59DD3-7765-4592-8DB6-F71AAB633A9B}"
 EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Garland", "Garland\Garland.cproj", "{CD08FDDB-DB20-4B6F-A194-324E86A1FE45}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|AVR = Debug|AVR
@@ -69,6 +71,10 @@ Global
 		{77B59DD3-7765-4592-8DB6-F71AAB633A9B}.Debug|AVR.Build.0 = Debug|AVR
 		{77B59DD3-7765-4592-8DB6-F71AAB633A9B}.Release|AVR.ActiveCfg = Release|AVR
 		{77B59DD3-7765-4592-8DB6-F71AAB633A9B}.Release|AVR.Build.0 = Release|AVR
+		{CD08FDDB-DB20-4B6F-A194-324E86A1FE45}.Debug|AVR.ActiveCfg = Debug|AVR
+		{CD08FDDB-DB20-4B6F-A194-324E86A1FE45}.Debug|AVR.Build.0 = Debug|AVR
+		{CD08FDDB-DB20-4B6F-A194-324E86A1FE45}.Release|AVR.ActiveCfg = Release|AVR
+		{CD08FDDB-DB20-4B6F-A194-324E86A1FE45}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

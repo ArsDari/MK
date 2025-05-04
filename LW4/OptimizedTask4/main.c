@@ -18,18 +18,18 @@ uint8_t segments[] =
 
 int main(void)
 {
-	DDRB = 0xFF;
-	DDRD &= ~(1 << PIND2);
-	PORTD |= (1 << PIND2);
+	DDRD = 0xFF;
+	DDRB &= ~(1 << PINB0);
+	PORTB |= (1 << PINB0);
 	uint8_t button = 0;
 	uint8_t switch_state = 0;
 	uint8_t counter = 0;
 	while (1)
 	{
-		button = PIND & (1 << PIND2);
+		button = PINB & (1 << PINB0);
 		if (button == 0)
 		{
-			while ((PIND & (1 << PIND2)) == 0)
+			while ((PINB & (1 << PINB0)) == 0)
 			{
 				if (switch_state == 0)
 				{
@@ -46,7 +46,7 @@ int main(void)
 		{
 			if (counter > 9)
 				counter = 0;
-			PORTB = segments[counter++];
+			PORTD = segments[counter++];
 			_delay_ms(1000);
 		}
 	}
