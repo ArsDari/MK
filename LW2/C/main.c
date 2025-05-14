@@ -14,6 +14,6 @@ int main(void)
 			PORTB |= (1 << PINB5);
 		else
 			PORTB &= ~(1 << PINB5);
-		_delay_ms(541,592375);
+		_delay_ms(541.592375);
 	}
 }

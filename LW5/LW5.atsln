@@ -7,13 +7,19 @@ Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Task1", "Task1\Task1.cproj"
 EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Task2", "Task2\Task2.cproj", "{8F405087-554F-4BC5-914C-3330FCE0232F}"
 EndProject
-Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "OptimizedTask1", "OptimizedTask1\OptimizedTask1.cproj", "{674963A4-C169-4E43-A8AA-D4921EEA6931}"
-EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Task3", "Task3\Task3.cproj", "{30A7E87A-AC84-43E8-8C46-D788C81C53B6}"
 EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "IndividualTask", "IndividualTask\IndividualTask.cproj", "{D6286488-A176-4116-9881-78E5819A9B54}"
 EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "OptimizedTask2", "OptimizedTask2\OptimizedTask2.cproj", "{0AF12319-1F7A-4DE7-986F-E1D9C51FAAA6}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "OptimizedTask3", "OptimizedTask3\OptimizedTask3.cproj", "{8672E84D-155E-4D06-BE16-D0A1936211D7}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Garland", "Garland\Garland.cproj", "{CD08FDDB-DB20-4B6F-A194-324E86A1FE45}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "OptimizedTask1_UsingArray", "OptimizedTask1_UsingArray\OptimizedTask1_UsingArray.cproj", "{F8B5D7A0-FF09-4533-B3C8-3E9E96123541}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "OptimizedTask1_UsingPointer", "OptimizedTask1_UsingPointer\OptimizedTask1_UsingPointer.cproj", "{674963A4-C169-4E43-A8AA-D4921EEA6931}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +35,6 @@ Global
 		{8F405087-554F-4BC5-914C-3330FCE0232F}.Debug|AVR.Build.0 = Debug|AVR
 		{8F405087-554F-4BC5-914C-3330FCE0232F}.Release|AVR.ActiveCfg = Release|AVR
 		{8F405087-554F-4BC5-914C-3330FCE0232F}.Release|AVR.Build.0 = Release|AVR
-		{674963A4-C169-4E43-A8AA-D4921EEA6931}.Debug|AVR.ActiveCfg = Debug|AVR
-		{674963A4-C169-4E43-A8AA-D4921EEA6931}.Debug|AVR.Build.0 = Debug|AVR
-		{674963A4-C169-4E43-A8AA-D4921EEA6931}.Release|AVR.ActiveCfg = Release|AVR
-		{674963A4-C169-4E43-A8AA-D4921EEA6931}.Release|AVR.Build.0 = Release|AVR
 		{30A7E87A-AC84-43E8-8C46-D788C81C53B6}.Debug|AVR.ActiveCfg = Debug|AVR
 		{30A7E87A-AC84-43E8-8C46-D788C81C53B6}.Debug|AVR.Build.0 = Debug|AVR
 		{30A7E87A-AC84-43E8-8C46-D788C81C53B6}.Release|AVR.ActiveCfg = Release|AVR
@@ -45,6 +47,22 @@ Global
 		{0AF12319-1F7A-4DE7-986F-E1D9C51FAAA6}.Debug|AVR.Build.0 = Debug|AVR
 		{0AF12319-1F7A-4DE7-986F-E1D9C51FAAA6}.Release|AVR.ActiveCfg = Release|AVR
 		{0AF12319-1F7A-4DE7-986F-E1D9C51FAAA6}.Release|AVR.Build.0 = Release|AVR
+		{8672E84D-155E-4D06-BE16-D0A1936211D7}.Debug|AVR.ActiveCfg = Debug|AVR
+		{8672E84D-155E-4D06-BE16-D0A1936211D7}.Debug|AVR.Build.0 = Debug|AVR
+		{8672E84D-155E-4D06-BE16-D0A1936211D7}.Release|AVR.ActiveCfg = Release|AVR
+		{8672E84D-155E-4D06-BE16-D0A1936211D7}.Release|AVR.Build.0 = Release|AVR
+		{CD08FDDB-DB20-4B6F-A194-324E86A1FE45}.Debug|AVR.ActiveCfg = Debug|AVR
+		{CD08FDDB-DB20-4B6F-A194-324E86A1FE45}.Debug|AVR.Build.0 = Debug|AVR
+		{CD08FDDB-DB20-4B6F-A194-324E86A1FE45}.Release|AVR.ActiveCfg = Release|AVR
+		{CD08FDDB-DB20-4B6F-A194-324E86A1FE45}.Release|AVR.Build.0 = Release|AVR
+		{F8B5D7A0-FF09-4533-B3C8-3E9E96123541}.Debug|AVR.ActiveCfg = Debug|AVR
+		{F8B5D7A0-FF09-4533-B3C8-3E9E96123541}.Debug|AVR.Build.0 = Debug|AVR
+		{F8B5D7A0-FF09-4533-B3C8-3E9E96123541}.Release|AVR.ActiveCfg = Release|AVR
+		{F8B5D7A0-FF09-4533-B3C8-3E9E96123541}.Release|AVR.Build.0 = Release|AVR
+		{674963A4-C169-4E43-A8AA-D4921EEA6931}.Debug|AVR.ActiveCfg = Debug|AVR
+		{674963A4-C169-4E43-A8AA-D4921EEA6931}.Debug|AVR.Build.0 = Debug|AVR
+		{674963A4-C169-4E43-A8AA-D4921EEA6931}.Release|AVR.ActiveCfg = Release|AVR
+		{674963A4-C169-4E43-A8AA-D4921EEA6931}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

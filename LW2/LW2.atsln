@@ -7,6 +7,10 @@ Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "C", "C\C.cproj", "{DCE6C7E3
 EndProject
 Project("{18226A42-8477-4023-8AD2-40C49DA407C9}") = "ASM", "ASM\ASM.asmproj", "{59B1D629-9DCC-43ED-A0FD-8AB0E4D622AB}"
 EndProject
+Project("{18226A42-8477-4023-8AD2-40C49DA407C9}") = "AdditionalTask_ASM", "AdditionalTask_ASM\AdditionalTask_ASM.asmproj", "{F594EC29-071E-4EE0-B59E-5AD39F0BC541}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "AdditionalTask_C", "AdditionalTask_C\AdditionalTask_C.cproj", "{455560AB-1A03-466C-AE97-4E1049A72ECE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|AVR = Debug|AVR
@@ -21,6 +25,14 @@ Global
 		{59B1D629-9DCC-43ED-A0FD-8AB0E4D622AB}.Debug|AVR.Build.0 = Debug|AVR
 		{59B1D629-9DCC-43ED-A0FD-8AB0E4D622AB}.Release|AVR.ActiveCfg = Release|AVR
 		{59B1D629-9DCC-43ED-A0FD-8AB0E4D622AB}.Release|AVR.Build.0 = Release|AVR
+		{F594EC29-071E-4EE0-B59E-5AD39F0BC541}.Debug|AVR.ActiveCfg = Debug|AVR
+		{F594EC29-071E-4EE0-B59E-5AD39F0BC541}.Debug|AVR.Build.0 = Debug|AVR
+		{F594EC29-071E-4EE0-B59E-5AD39F0BC541}.Release|AVR.ActiveCfg = Release|AVR
+		{F594EC29-071E-4EE0-B59E-5AD39F0BC541}.Release|AVR.Build.0 = Release|AVR
+		{455560AB-1A03-466C-AE97-4E1049A72ECE}.Debug|AVR.ActiveCfg = Debug|AVR
+		{455560AB-1A03-466C-AE97-4E1049A72ECE}.Debug|AVR.Build.0 = Debug|AVR
+		{455560AB-1A03-466C-AE97-4E1049A72ECE}.Release|AVR.ActiveCfg = Release|AVR
+		{455560AB-1A03-466C-AE97-4E1049A72ECE}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

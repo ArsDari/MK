@@ -25,10 +25,6 @@ Project("{18226A42-8477-4023-8AD2-40C49DA407C9}") = "CommandBRLT", "CommandBRLT\
 EndProject
 Project("{18226A42-8477-4023-8AD2-40C49DA407C9}") = "InsertSort", "InsertSort\InsertSort.asmproj", "{C18534B4-2890-4139-98BD-5CC4B549508E}"
 EndProject
-Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "InsertSort_C", "InsertSort_C\InsertSort_C.cproj", "{DCE6C7E3-EE26-4D79-826B-08594B9AD897}"
-EndProject
-Project("{18226A42-8477-4023-8AD2-40C49DA407C9}") = "InsertSort_Without_Pointers", "InsertSort_Without_Pointers\InsertSort_Without_Pointers.asmproj", "{4F90A88E-048C-4C1A-B3DD-897AE488B509}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|AVR = Debug|AVR
@@ -79,14 +75,6 @@ Global
 		{C18534B4-2890-4139-98BD-5CC4B549508E}.Debug|AVR.Build.0 = Debug|AVR
 		{C18534B4-2890-4139-98BD-5CC4B549508E}.Release|AVR.ActiveCfg = Release|AVR
 		{C18534B4-2890-4139-98BD-5CC4B549508E}.Release|AVR.Build.0 = Release|AVR
-		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Debug|AVR.ActiveCfg = Debug|AVR
-		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Debug|AVR.Build.0 = Debug|AVR
-		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Release|AVR.ActiveCfg = Release|AVR
-		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Release|AVR.Build.0 = Release|AVR
-		{4F90A88E-048C-4C1A-B3DD-897AE488B509}.Debug|AVR.ActiveCfg = Debug|AVR
-		{4F90A88E-048C-4C1A-B3DD-897AE488B509}.Debug|AVR.Build.0 = Debug|AVR
-		{4F90A88E-048C-4C1A-B3DD-897AE488B509}.Release|AVR.ActiveCfg = Release|AVR
-		{4F90A88E-048C-4C1A-B3DD-897AE488B509}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

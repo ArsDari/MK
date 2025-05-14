@@ -14,8 +14,6 @@
 volatile uint8_t flagTIM1A = 0;
 
 void InitTimer();
-void SendByte(uint8_t data);
-void SendWord(uint16_t data);
 void Send32(uint32_t data);
 void SPI_MasterInit();
 void SPI_MasterTransmit(uint8_t);
@@ -47,7 +45,6 @@ int main(void)
 	SPI_MasterInit();
 	sei();
 	uint16_t cnt = 0;
-	uint16_t dataWord = 0;
 	uint32_t data32 = 0;
 	uint8_t thousands, hundreds, decades, units = 0;
 	uint8_t *p;
@@ -82,31 +79,6 @@ void InitTimer()
 	OCR1A = DELAY_TIM1A;
 }
 
-void SendByte(uint8_t data)
-{
-	for (uint8_t i = 0; i < 8; i++)
-	{
-		PORTB &= ~(1 << CLK);
-		if (data & END_TRANSMISSION)
-		PORTB |= (1 << DAT);
-		else
-		PORTB &= ~(1 << DAT);
-		
-		PORTB &= ~(1 << CLK);
-		data <<= 1;
-		PORTB |= (1 << CLK);
-	}
-}
-
-void SendWord(uint16_t data)
-{
-	SPI_MasterTransmit(data);
-	SPI_MasterTransmit(data >> 8);
-	PORTB &= ~(1 << LAT);
-	PORTB |= (1 << LAT);
-	PORTB &= ~(1 << LAT);
-}
-
 void Send32(uint32_t data)
 {
 	SPI_MasterTransmit(data);
@@ -126,5 +98,5 @@ void SPI_MasterInit()
 void SPI_MasterTransmit(uint8_t data)
 {
 	SPDR = data;
-	while (!(SPDR & (1 << SPIF)));
+	while (!(SPSR & (1 << SPIF)));
 }
