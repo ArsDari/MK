@@ -43,10 +43,16 @@ int main(void)
 	while (1)
 	{
 		uint8_t *p = (uint8_t *)&segBuffer;
-		*p++ = segments[counter % 10];
-		*p++ = segments[(counter / 10) % 10];
-		*p++ = segments[(counter / 100) % 10];
-		*p = segments[counter / 1000];
+		/* для использования оригинальных индикаторов
+		*p++ = ~segments[counter % 10];
+		*p++ = ~segments[(counter / 10) % 10];
+		*p++ = ~segments[(counter / 100) % 10];
+		*p = ~segments[counter / 1000];
+		*/
+		*p++ = ~segments[counter / 1000];
+		*p++ = ~segments[(counter / 100) % 10];
+		*p++ = ~segments[(counter / 10) % 10];
+		*p = ~segments[counter % 10];
 		send32(segBuffer);
 		if (allowCount == COUNT_ALLOWED)
 		{

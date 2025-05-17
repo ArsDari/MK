@@ -1,6 +1,6 @@
 #include "LCD.h"
 
-void InitLCD(void)
+void initializeLCD(void)
 {
     uint8_t BF = 0x80;
     _delay_ms(40);

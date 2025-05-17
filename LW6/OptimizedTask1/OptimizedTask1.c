@@ -6,8 +6,7 @@
 #define TIMER_INCREMENT_DELAY F_CPU / 1024 * INCREMENT_DELAY / 1000
 #define PRESCALE_1024 (1 << CS12) | (1 << CS10)
 
-#define UPDATE_ALLOWED 1
-#define UPDATE_DISALLOWED 0
+#define PRESCALE_ADC (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0)
 
 #define CLK PINB5
 #define DAT PINB3
@@ -37,7 +36,6 @@ void transmitSPI(uint8_t);
 void fillBuffer(uint16_t);
 void send32(uint32_t);
 
-volatile uint8_t allowUpdate = UPDATE_DISALLOWED;
 volatile uint16_t voltageValue = 0;
 volatile uint32_t segBuffer = 0;
 
@@ -50,18 +48,14 @@ int main(void)
 	sei();
 	while (1)
 	{
-		if (allowUpdate == UPDATE_ALLOWED)
-		{
-			allowUpdate = UPDATE_DISALLOWED;
-			fillBuffer(voltageValue);
-			send32(segBuffer);
-		}
+		
 	}
 }
 
 ISR(TIMER1_COMPB_vect)
 {
-	allowUpdate = UPDATE_ALLOWED;
+	fillBuffer(voltageValue);
+	send32(segBuffer);
 }
 
 ISR(ADC_vect)
@@ -85,15 +79,15 @@ void initializeTimer()
 
 void initializeSPI()
 {
-	SPCR = (1 << SPE) | (1 << MSTR) |(1 << SPR1) | (1 << SPR0);
+	SPCR = (1 << SPE) | (1 << MSTR) | (1 << SPR1) | (1 << SPR0);
 	PORTB &= ~(1 << DAT) | (1 << CLK);
 }
 
 void initializeADC()
 {
 	ADMUX = (1 << MUX0);
-	ADCSRB = (1 << ADTS2) | (1 << ADTS0);
-	ADCSRA = (1 << ADEN) | (1 << ADATE) | (1 << ADIE);
+	ADCSRA = (1 << ADEN) | (1 << ADATE) | (1 << ADIE) | PRESCALE_ADC;
+	ADCSRB = (1 << ADTS2) |	(1 << ADTS0);
 }
 
 void transmitSPI(uint8_t data)
@@ -105,10 +99,10 @@ void transmitSPI(uint8_t data)
 void fillBuffer(uint16_t value)
 {
 	uint8_t *p = (uint8_t *)&segBuffer;
-	*p++ = segments[value % 10];
-	*p++ = segments[(value / 10) % 10];
-	*p++ = segments[(value / 100) % 10];
-	*p = segments[value / 1000];
+	*p++ = ~segments[value % 10];
+	*p++ = ~segments[(value / 10) % 10];
+	*p++ = ~segments[(value / 100) % 10];
+	*p = ~segments[value / 1000];
 }
 
 void send32(uint32_t data)

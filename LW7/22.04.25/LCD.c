@@ -54,9 +54,7 @@ void InitLCD(void)
     LCD_Write(CMD, 0x0C); //display on, cursor on
     LCD_Write(CMD, 0x06); //cnt++, shift enabled
 	
-	SET_CFG_OUT;
 	_delay_ms(15);
-	USART
 }
 
 void LCD_Write(uint8_t type, char data)

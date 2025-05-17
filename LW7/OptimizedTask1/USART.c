@@ -1,23 +1,36 @@
 #include "USART.h"
 
-void InitUSART()
+ISR(USART_TX_vect)
 {
-    UCSR0B = (1 << RXEN0 | 1 << TXEN0 | 1 << RXCIE0);
-    UCSR0C = (1 << UCSZ01 | 1 << UCSZ00);
-    UBRR0H = 0;
-    UBRR0L = F_CPU / 16 / BAUDRATE - 1;
+	if (currentElementIndex == lastElementIndex)
+	{
+		stateUART = UART_STANDBY;
+		currentElementIndex = 0;
+		lastElementIndex = 0;
+	}
+	else
+		UDR0 = bufferUART[currentElementIndex++];
 }
 
-void SendChar(char symbol)
+void initializeUSART()
 {
-    while (!(UCSR0A & (1 << UDRE0)));
-    UDR0 = symbol;
+    UCSR0B = (1 << RXCIE0) | (1 << TXCIE0) | (1 << RXEN0) | (1 << TXEN0);
+    UCSR0C = (1 << UDORD0) | (1 << UCPHA0);
+    UBRR0 = F_CPU / 16 / BAUD_RATE - 1;
 }
 
-void SendString(char *buffer)
+void push(char element)
+{
+    bufferUART[lastElementIndex++] = element;
+    if (stateUART == UART_STANDBY)
+    {
+	    stateUART = UART_BUSY;
+	    UDR0 = bufferUART[currentElementIndex++];
+    }
+}
+
+void pushString(char *buffer)
 {
     while(*buffer != 0)
-    {
-        SendChar(*buffer++);
-    }
+        push(*buffer++);
 }

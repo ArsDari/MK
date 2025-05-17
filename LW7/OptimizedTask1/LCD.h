@@ -2,7 +2,7 @@
 #define LCD_H_
 
 #ifndef F_CPU
-#define F_CPU 8000000UL
+#define F_CPU 16000000UL
 #endif
 
 #include <avr/io.h>
@@ -18,7 +18,7 @@
 #define CMD 0
 #define DATA 1
 
-void InitLCD(void);
+void initializeLCD(void);
 void LCD_Write(uint8_t type, char data);
 char LCD_Read(void);
 void LCD_SendString(char *str);

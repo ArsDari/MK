@@ -6,6 +6,8 @@
 #define TIMER_INCREMENT_DELAY F_CPU / 1024 * INCREMENT_DELAY / 1000
 #define PRESCALE_1024 (1 << CS12) | (1 << CS10)
 
+#define PRESCALE_ADC (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0)
+
 #define CLK PINB5
 #define DAT PINB3
 #define SS PINB2
@@ -15,16 +17,9 @@
 #define SPACE_SYMBOL 0x20
 #define MAX_BUFFER_SIZE 256
 
-#define UPDATE_ALLOWED 1
-#define UPDATE_DISALLOWED 0
-
-#define SEND_ALLOWED 1
-#define SEND_DISALLOWED 0
-
-#define UART_BUSY 1
-#define UART_STANDBY 0
+#define USART_BUSY 1
+#define USART_STANDBY 0
 #define BAUD_RATE 4800
-#define CALCULATED_UBRR F_CPU / 16 / BAUD_RATE - 1
 
 uint8_t segments[] =
 {
@@ -44,7 +39,7 @@ void initializePorts();
 void initializeTimer();
 void initializeSPI();
 void initializeADC();
-void initializeUART();
+void initializeUSART();
 
 void transmitSPI(uint8_t);
 void fillBuffer(uint16_t);
@@ -52,14 +47,12 @@ void send32(uint32_t);
 
 void push(char);
 void pushString(char *);
-char pop();
 
-volatile char bufferUART[MAX_BUFFER_SIZE];
+volatile char bufferUSART[MAX_BUFFER_SIZE];
 volatile uint8_t currentElementIndex = 0;
 volatile uint8_t lastElementIndex = 0;
-volatile uint8_t stateUART = UART_STANDBY;
-volatile uint8_t allowUpdate = UPDATE_DISALLOWED;
-volatile uint8_t allowSend = SEND_DISALLOWED;
+volatile uint8_t stateUSART = USART_STANDBY;
+
 volatile uint16_t voltageValue = 0;
 volatile uint32_t segBuffer = 0;
 
@@ -69,49 +62,31 @@ int main(void)
 	initializeTimer();
 	initializeSPI();
 	initializeADC();
-	initializeUART();
+	initializeUSART();
 	EIMSK |= (1 << INT0);
 	EICRA |= (1 << ISC01);
 	sei();
+	pushString("USART Check - OK!\r\n");
 	while (1)
 	{
-		if (allowUpdate == UPDATE_ALLOWED)
-		{
-			allowUpdate = UPDATE_DISALLOWED;
-			fillBuffer(voltageValue);
-			send32(segBuffer);
-		}
-		if (allowSend)
-		{
-			allowSend = SEND_DISALLOWED;
-			pushString("Value = ");
-			push(ASCII_SYMBOL_START + voltageValue / 1000);
-			push(ASCII_SYMBOL_START + (voltageValue / 100) % 10);
-			push(ASCII_SYMBOL_START + (voltageValue / 10) % 10);
-			push(ASCII_SYMBOL_START + voltageValue % 10);
-			pushString("\r\n");
-		}
-		if (UCSR0A & (1 << UDRE0) && stateUART == UART_BUSY)
-		{
-			UDR0 = pop();
-			if (currentElementIndex == lastElementIndex)
-			{
-				stateUART = UART_STANDBY;
-				currentElementIndex = 0;
-				lastElementIndex = 0;
-			}
-		}
+		
 	}
 }
 
 ISR(TIMER1_COMPB_vect)
 {
-	
+	fillBuffer(voltageValue);
+	send32(segBuffer);
 }
 
 ISR(INT0_vect)
 {
-	allowSend = SEND_ALLOWED;
+	pushString("Value = ");
+	push(ASCII_SYMBOL_START + voltageValue / 1000);
+	push(ASCII_SYMBOL_START + (voltageValue / 100) % 10);
+	push(ASCII_SYMBOL_START + (voltageValue / 10) % 10);
+	push(ASCII_SYMBOL_START + voltageValue % 10);
+	pushString("\r\n");
 }
 
 ISR(ADC_vect)
@@ -123,6 +98,18 @@ ISR(USART_RX_vect)
 {
 	if (UDR0 == SPACE_SYMBOL)
 		pushString("Roger that\r\n");
+}
+
+ISR(USART_TX_vect)
+{
+	if (currentElementIndex == lastElementIndex)
+	{
+		stateUSART = USART_STANDBY;
+		currentElementIndex = 0;
+		lastElementIndex = 0;
+	}
+	else
+		UDR0 = bufferUSART[currentElementIndex++];
 }
 
 void initializePorts()
@@ -150,15 +137,15 @@ void initializeSPI()
 void initializeADC()
 {
 	ADMUX = (1 << MUX0);
-	ADCSRB = (1 << ADTS2) | (1 << ADTS0);
-	ADCSRA = (1 << ADEN) | (1 << ADATE) | (1 << ADIE);
+	ADCSRA = (1 << ADEN) | (1 << ADATE) | (1 << ADIE) | PRESCALE_ADC;
+	ADCSRB = (1 << ADTS2) |	(1 << ADTS0);
 }
 
-void initializeUART()
+void initializeUSART()
 {
-	UCSR0B = (1 << RXEN0) | (1 << TXEN0);
-	UCSR0C = (1 << UCSZ01) | (1 << UCSZ00);
-	UBRR0 = CALCULATED_UBRR;
+	UCSR0B = (1 << RXCIE0) | (1 << TXCIE0) | (1 << RXEN0) | (1 << TXEN0);
+	UCSR0C = (1 << UDORD0) | (1 << UCPHA0);
+	UBRR0 = F_CPU / 16 / BAUD_RATE - 1;
 }
 
 void transmitSPI(uint8_t data)
@@ -170,10 +157,10 @@ void transmitSPI(uint8_t data)
 void fillBuffer(uint16_t value)
 {
 	uint8_t *p = (uint8_t *)&segBuffer;
-	*p++ = segments[value % 10];
-	*p++ = segments[(value / 10) % 10];
-	*p++ = segments[(value / 100) % 10];
-	*p = segments[value / 1000];
+	*p++ = ~segments[value % 10];
+	*p++ = ~segments[(value / 10) % 10];
+	*p++ = ~segments[(value / 100) % 10];
+	*p = ~segments[value / 1000];
 }
 
 void send32(uint32_t data)
@@ -194,12 +181,10 @@ void pushString(char *string)
 
 void push(char element)
 {
-	if (stateUART == UART_STANDBY)
-		stateUART = UART_BUSY;
-	bufferUART[lastElementIndex++] = element;
-}
-
-char pop()
-{
-	return bufferUART[currentElementIndex++];
+	bufferUSART[lastElementIndex++] = element;
+	if (stateUSART == USART_STANDBY)
+	{
+		stateUSART = USART_BUSY;
+		UDR0 = bufferUSART[currentElementIndex++];
+	}
 }
