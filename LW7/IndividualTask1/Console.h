@@ -3,9 +3,11 @@
 
 #include <avr/io.h>
 #include <string.h>
+#include <stdio.h>
 #include "ADC.h"
 #include "SPI.h"
 #include "USART.h"
+#include "LCD.h"
 
 #define COMPARE_EQUAL 0
 #define CONSOLE_INVALID_ARGUMENT_IN_COMMAND 3

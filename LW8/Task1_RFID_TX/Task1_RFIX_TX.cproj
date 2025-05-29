@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>7.0</ProjectVersion>
     <ToolchainName>com.Atmel.AVRGCC8.C</ToolchainName>
-    <ProjectGuid>{579ccab0-b2fb-4182-8b2d-dea8eaea7e80}</ProjectGuid>
+    <ProjectGuid>{13fc38ed-dd13-44a6-94c6-822ba1bd48d4}</ProjectGuid>
     <avrdevice>ATmega328P</avrdevice>
     <avrdeviceseries>none</avrdeviceseries>
     <OutputType>Executable</OutputType>
@@ -12,9 +12,9 @@
     <OutputFileName>$(MSBuildProjectName)</OutputFileName>
     <OutputFileExtension>.elf</OutputFileExtension>
     <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
-    <AssemblyName>IndividualTask</AssemblyName>
-    <Name>IndividualTask</Name>
-    <RootNamespace>IndividualTask</RootNamespace>
+    <AssemblyName>LAB_RFIX_TX</AssemblyName>
+    <Name>LAB_RFIX_TX</Name>
+    <RootNamespace>LAB_RFIX_TX</RootNamespace>
     <ToolchainFlavour>Native</ToolchainFlavour>
     <KeepTimersRunning>true</KeepTimersRunning>
     <OverrideVtor>false</OverrideVtor>
@@ -120,37 +120,7 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ADC.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="ADC.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Console.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Console.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="IndividualTask.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="SPI.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="SPI.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Timer.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Timer.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="USART.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="USART.h">
+    <Compile Include="Task1_RFID_TX.c">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>

@@ -6,9 +6,9 @@
 #define FORWARD 1
 #define BACKWARD 0
 
-#define REBOUND 0
+#define REBOUND_WITH_TWO_LED 0
 #define ACCUMULATE 1
-#define ACCUMULATE_AND_DECREASE 2
+#define REBOUND 2
 
 #define FULL_GARLAND 0x0007FFFF
 #define EMPTY_GARLAND 0x00000000
@@ -20,7 +20,7 @@
 #define MASK_BEFORE_PIND2 0x03
 #define MASK_AFTER_PIND2 0xF8
 
-volatile uint8_t effect = REBOUND;
+volatile uint8_t effect = REBOUND_WITH_TWO_LED;
 volatile uint32_t frame = EMPTY_GARLAND;
 volatile uint8_t counter = START_COUNTER;
 volatile uint8_t direction = FORWARD;
@@ -64,34 +64,34 @@ void generateEffect()
 {
     switch (effect)
     {
-		case REBOUND:
+		case REBOUND_WITH_TWO_LED:
 		{
 			if (direction)
 			{
-				if (frame < FULL_GARLAND)
-				{
-					frame |= (1UL << counter++);
-					frame |= (1UL << counter++);
-				}
+				frame |= (1UL << counter++);
+				frame |= (1UL << counter++);
 				if (frame >= FULL_GARLAND)
+				{
 					direction = BACKWARD;
+				}
 			}
 			else
 			{
-				if (frame > EMPTY_GARLAND)
+				frame &= ~(1UL << --counter);
+				frame &= ~(1UL << --counter);
+				if (frame == EMPTY_GARLAND)
 				{
-					frame &= ~(1UL << --counter);
-					frame &= ~(1UL << --counter);
-				}
-				if (frame <= EMPTY_GARLAND)
 					direction = FORWARD;
+				}
 			}
 			break;
 		}
 		case ACCUMULATE:
 		{
 			if (frame < FULL_GARLAND)
+			{
 				frame |= (1UL << counter++);
+			}
 			else
 			{
 				counter = START_COUNTER;
@@ -99,19 +99,23 @@ void generateEffect()
 			}
 			break;
 		}
-		case ACCUMULATE_AND_DECREASE:
+		case REBOUND:
 		{
 			if (direction)
 			{
 				frame |= (1UL << counter++);
 				if (frame == FULL_GARLAND)
+				{
 					direction = BACKWARD;
+				}
 			}
 			else
 			{
 				frame &= ~(1UL << --counter);
 				if (frame == EMPTY_GARLAND)
+				{
 					direction = FORWARD;
+				}
 			}
 			break;
 		}

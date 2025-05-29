@@ -113,6 +113,96 @@ uint8_t consoleHandler()
 			return CONSOLE_INVALID_ARGUMENT;
 		}
 	}
+	else if (strncmp((const char*)(consoleBufferUSART), "/send_to_LCD ", 13) == COMPARE_EQUAL)
+	{
+		sendInstruction_LCD(LCD_CLEAR);
+		_delay_ms(2);
+		char *currentChar = (char *)&consoleBufferUSART[13];
+		uint8_t indexLCD = 0;
+		while (indexLCD < 0x20)
+		{
+			if (*currentChar == '\0')
+			{
+				break;
+			}
+			else if (*currentChar == '\n')
+			{
+				if (indexLCD < 0x10)
+				{
+					sendInstruction_LCD(LCD_SET_CURSOR | LCD_SECOND_LINE);
+					_delay_us(50);
+					indexLCD = 0x10;
+				}
+				else
+				{
+					break;
+				}
+			}
+			else if (indexLCD == 0x10)
+			{
+				sendInstruction_LCD(LCD_SET_CURSOR | LCD_SECOND_LINE);
+				_delay_us(50);
+				send_LCD(*currentChar);
+				_delay_us(50);
+				indexLCD = 0x11;
+			}
+			else
+			{
+				send_LCD(*currentChar);
+				_delay_us(50);
+				indexLCD++;
+			}
+			currentChar++;
+		}
+		pushString("Sent input value to LCD.\r\n");
+	}
+	else if (strncmp((const char*)(consoleBufferUSART), "/execute ", 9) == COMPARE_EQUAL)
+	{
+		if (consoleBufferUSART[10] == ' ' && consoleBufferUSART[12] == ' ' && consoleBufferUSART[14] == '\0')
+		{
+			int8_t leftOperand = consoleBufferUSART[9] - ASCII_SYMBOL_START;
+			int8_t rightOperand = consoleBufferUSART[13] - ASCII_SYMBOL_START;
+			char operation = consoleBufferUSART[11];
+			char result[2];
+			switch (operation)
+			{
+				case '+':
+				{
+					leftOperand += rightOperand;
+					break;
+				}
+				case '-':
+				{
+					leftOperand -= rightOperand;
+					break;
+				}
+				case '*':
+				{
+					leftOperand *= rightOperand;
+					break;
+				}
+				case '/':
+				{
+					if (rightOperand == 0)
+					{
+						return CONSOLE_INVALID_ARGUMENT_IN_COMMAND;
+					}
+					leftOperand /= rightOperand;
+					break;
+				}
+			}
+			sendInstruction_LCD(LCD_CLEAR);
+			_delay_ms(2);
+			sprintf(result, "%d", leftOperand);
+			sendString_LCD(result);
+			_delay_us(50);
+			pushString("Success!\r\n");
+		}
+		else
+		{
+			return CONSOLE_INVALID_ARGUMENT;
+		}
+	}
 	else
 	{
 		return CONSOLE_UNKNOWN_COMMAND;

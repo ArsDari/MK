@@ -6,6 +6,7 @@
 #include "SPI.h"
 #include "Timer.h"
 #include "USART.h"
+#include "LCD.h"
 
 void initializePorts();
 
@@ -16,12 +17,14 @@ int main(void)
 	initializeSPI();
 	initializeADC();
 	initializeUSART();
+	initializeLCD();
 	EIMSK |= (1 << INT0);
 	EICRA |= (1 << ISC01);
 	sei();
 	fillBuffer(0);
 	send32(buffer7Seg);
 	pushString("USART Check - OK!\r\n");
+	sendString_LCD("LCD Check - OK!");
 	while (1)
 	{
 		switch (stateUSART)
@@ -151,6 +154,9 @@ ISR(ADC_vect)
 void initializePorts()
 {
 	DDRB = (1 << LAT) | (1 << SS) | (1 << DAT) | (1 << CLK);
-	DDRD &= ~(1 << PIND2);
-	PORTD |= (1 << PIND2);
+	PORTB = 0;
+	DDRD = ((1 << RS) | (1 << RW) | (1 << E)) & ~(1 << PIND2);
+	PORTD = (1 << PIND2);
+	DDRC |= (1 << D7) | (1 << D6) | (1 << D5) | (1 << D4);
+	PORTC &= ~((1 << D7) | (1 << D6) | (1 << D5) | (1 << D4));
 }

@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>7.0</ProjectVersion>
     <ToolchainName>com.Atmel.AVRGCC8.C</ToolchainName>
-    <ProjectGuid>{579ccab0-b2fb-4182-8b2d-dea8eaea7e80}</ProjectGuid>
+    <ProjectGuid>{af6be188-05db-4812-8347-d0f1f0db18d5}</ProjectGuid>
     <avrdevice>ATmega328P</avrdevice>
     <avrdeviceseries>none</avrdeviceseries>
     <OutputType>Executable</OutputType>
@@ -12,9 +12,9 @@
     <OutputFileName>$(MSBuildProjectName)</OutputFileName>
     <OutputFileExtension>.elf</OutputFileExtension>
     <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
-    <AssemblyName>IndividualTask</AssemblyName>
-    <Name>IndividualTask</Name>
-    <RootNamespace>IndividualTask</RootNamespace>
+    <AssemblyName>IndividualTask1</AssemblyName>
+    <Name>IndividualTask1</Name>
+    <RootNamespace>IndividualTask1</RootNamespace>
     <ToolchainFlavour>Native</ToolchainFlavour>
     <KeepTimersRunning>true</KeepTimersRunning>
     <OverrideVtor>false</OverrideVtor>
@@ -132,7 +132,13 @@
     <Compile Include="Console.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="IndividualTask.c">
+    <Compile Include="IndividualTask1.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="LCD.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="LCD.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="SPI.c">

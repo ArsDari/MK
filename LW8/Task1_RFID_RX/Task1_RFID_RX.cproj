@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>7.0</ProjectVersion>
     <ToolchainName>com.Atmel.AVRGCC8.C</ToolchainName>
-    <ProjectGuid>{579ccab0-b2fb-4182-8b2d-dea8eaea7e80}</ProjectGuid>
+    <ProjectGuid>dce6c7e3-ee26-4d79-826b-08594b9ad897</ProjectGuid>
     <avrdevice>ATmega328P</avrdevice>
     <avrdeviceseries>none</avrdeviceseries>
     <OutputType>Executable</OutputType>
@@ -12,18 +12,18 @@
     <OutputFileName>$(MSBuildProjectName)</OutputFileName>
     <OutputFileExtension>.elf</OutputFileExtension>
     <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
-    <AssemblyName>IndividualTask</AssemblyName>
-    <Name>IndividualTask</Name>
-    <RootNamespace>IndividualTask</RootNamespace>
+    <AssemblyName>LAB_RFID_RX</AssemblyName>
+    <Name>LAB_RFID_RX</Name>
+    <RootNamespace>LAB_RFID_RX</RootNamespace>
     <ToolchainFlavour>Native</ToolchainFlavour>
     <KeepTimersRunning>true</KeepTimersRunning>
     <OverrideVtor>false</OverrideVtor>
     <CacheFlash>true</CacheFlash>
     <ProgFlashFromRam>true</ProgFlashFromRam>
-    <RamSnippetAddress />
+    <RamSnippetAddress>0x20000000</RamSnippetAddress>
     <UncachedRange />
     <preserveEEPROM>true</preserveEEPROM>
-    <OverrideVtorValue />
+    <OverrideVtorValue>exception_table</OverrideVtorValue>
     <BootSegment>2</BootSegment>
     <ResetRule>0</ResetRule>
     <eraseonlaunchrule>0</eraseonlaunchrule>
@@ -120,37 +120,7 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ADC.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="ADC.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Console.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Console.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="IndividualTask.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="SPI.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="SPI.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Timer.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Timer.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="USART.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="USART.h">
+    <Compile Include="Task1_RFID_RX.c">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>

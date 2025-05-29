@@ -1,7 +1,8 @@
+#include <avr/interrupt.h>
+#include <string.h>
 #include "LCD.h"
 #include "OneWire.h"
 #include "USART.h"
-#include <avr/interrupt.h>
 
 void InitPorts(void);
 void InitTimer1(void);
