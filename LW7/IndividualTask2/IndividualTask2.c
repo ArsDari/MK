@@ -7,8 +7,17 @@
 #include "Timer.h"
 #include "USART.h"
 #include "LCD.h"
+#include "OneWire.h"
 
 void initializePorts();
+void matchROM(const char[]);
+void formatTemperatureValue(uint16_t);
+
+volatile uint8_t allowUpdate = 0;
+const char firstSensor[] = {0x28, 0xF1, 0x6E, 0x44, 0xD4, 0xDE, 0x2A, 0x58};
+const char secondSensor[] = {0x28, 0xC7, 0x38, 0x45, 0xD4, 0x86, 0x15, 0x7F};
+const char symbols[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+char temperatureResponse[MAX_BUFFER_SIZE];
 
 int main(void)
 {
@@ -18,6 +27,18 @@ int main(void)
 	initializeADC();
 	initializeUSART();
 	initializeLCD();
+	initializeOneWire();
+	matchROM(firstSensor);
+	sendOneWire(WRITE_SCRATCHPAD);
+	sendOneWire(0);
+	sendOneWire(0);
+	sendOneWire(0x3F);
+	initializeOneWire();
+	matchROM(secondSensor);
+	sendOneWire(WRITE_SCRATCHPAD);
+	sendOneWire(0);
+	sendOneWire(0);
+	sendOneWire(0x7F);
 	EIMSK |= (1 << INT0);
 	EICRA |= (1 << ISC01);
 	sei();
@@ -74,11 +95,43 @@ int main(void)
 				break;
 			}
 		}
+		if (allowUpdate)
+		{
+			char tempString[32];
+			tempString = "1: ";
+			allowUpdate = 0;
+			initializeOneWire();
+			sendOneWire(SKIP_ROM);
+			sendOneWire(CONVERT_TEMPERATURE);
+			_delay_ms(825);
+			initializeOneWire();
+			matchROM(firstSensor);
+			sendOneWire(READ_SCRATCHPAD);
+			uint16_t unparsedTemperature = readOneWire();
+			unparsedTemperature |= readOneWire() << 8;
+			formatTemperatureValue(unparsedTemperature);
+			memcpy(tempString[3], temperatureValue, 8);
+			temperatureValue[]
+			pushString("Temperature of first sensor: ");
+			pushString((char *)(temperatureValue));
+			pushString("\r\n");
+			initializeOneWire();
+			matchROM(secondSensor);
+			sendOneWire(READ_SCRATCHPAD);
+			unparsedTemperature = readOneWire();
+			unparsedTemperature |= readOneWire() << 8;
+			formatTemperatureValue(unparsedTemperature);
+			pushString("Temperature of second sensor: ");
+			pushString((char *)(temperatureValue));
+			pushString("\r\n");
+			sendString_LCD();
+		}
 	}
 }
 
 ISR(INT0_vect)
 {
+	allowUpdate = 1;
 	pushString("ADC Value = ");
 	push(ASCII_SYMBOL_START + ADCValue / 1000);
 	push(ASCII_SYMBOL_START + (ADCValue / 100) % 10);
@@ -112,12 +165,9 @@ ISR(USART_RX_vect)
 	}
 	else
 	{
-		if (received == BACKSPACE_SYMBOL)
+		if (received == BACKSPACE_SYMBOL && inputLastElementIndex > 0)
 		{
-			if (inputLastElementIndex > 0)
-			{
-				--inputLastElementIndex;
-			}
+			--inputLastElementIndex;
 		}
 		else
 		{

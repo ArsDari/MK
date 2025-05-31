@@ -1,7 +1,6 @@
 #define F_CPU 16000000UL
 #include <avr/io.h>
 #include <avr/interrupt.h>
-#include <stdio.h>
 #include "USART.h"
 #include "OneWire.h"
 
@@ -11,6 +10,8 @@
 void initializePorts();
 
 volatile uint8_t allowUpdate = 0;
+const char firstSensor[] = {0x28, 0xBA, 0xF9, 0x36, 0x08, 0x00, 0x00, 0xE7};
+const char secondSensor[] = {0x28, 0x31, 0xC5, 0xB8, 0x00, 0x00, 0x00, 0xB9};
 
 int main(void)
 {
@@ -20,13 +21,21 @@ int main(void)
 	EICRA |= (1 << ISC01);
 	sei();
 	pushString("USART Check - OK!\r\n");
+	
 	initializeOneWire();
-	sendOneWire(SKIP_ROM);
+	matchROM(firstSensor);
 	sendOneWire(WRITE_SCRATCHPAD);
 	sendOneWire(0);
 	sendOneWire(0);
 	sendOneWire(0x3F);
-	char stringTemperature[4];
+	
+	initializeOneWire();
+	matchROM(secondSensor);
+	sendOneWire(WRITE_SCRATCHPAD);
+	sendOneWire(0);
+	sendOneWire(0);
+	sendOneWire(0x7F);
+	
 	while (1) 
     {
 		switch (stateUSART)
@@ -50,57 +59,32 @@ int main(void)
 		if (allowUpdate)
 		{
 			allowUpdate = 0;
+			
 			initializeOneWire();
 			sendOneWire(SKIP_ROM);
 			sendOneWire(CONVERT_TEMPERATURE);
-			while (readBitOneWire() == 0);
+			_delay_ms(825);
+			
 			initializeOneWire();
-			sendOneWire(SKIP_ROM);
-			sendOneWire(READ_TEMPERATURE);
+			matchROM(firstSensor);
+			sendOneWire(READ_SCRATCHPAD);
+			uint16_t unparsedTemperature = readOneWire();
+			unparsedTemperature |= readOneWire() << 8;
 			
-			uint16_t temp = readOneWire();
-			temp |= readOneWire() << 8;
+			formatTemperatureValue(unparsedTemperature);
+			pushString("Temperature of first sensor: ");
+			pushString((char *)(temperatureValue));
+			pushString("\r\n");
 			
-			uint8_t beforePoint = 0;
-			uint8_t afterPoint = 0;
+			initializeOneWire();
+			matchROM(secondSensor);
+			sendOneWire(READ_SCRATCHPAD);
+			unparsedTemperature = readOneWire();
+			unparsedTemperature |= readOneWire() << 8;
 			
-			beforePoint = (temp & 0x0F);
-			afterPoint = (temp >> 4) & 0x3F;
-			
-			//if (temp >> 11 & 0x01)
-			//{
-				//beforePoint = -beforePoint;
-				//afterPoint = -afterPoint;
-			//}
-			
-			uint16_t tempBeforePoint = 0;
-			if ((beforePoint >> 3) & 0x01)
-			{
-				tempBeforePoint += 2;
-			}
-			if ((beforePoint >> 2) & 0x01)
-			{
-				tempBeforePoint += 2 * 2;
-			}
-			if ((beforePoint >> 1) & 0x01)
-			{
-				tempBeforePoint += 2 * 2 * 2;
-			}
-			if ((beforePoint >> 0) & 0x01)
-			{
-				tempBeforePoint += 2 * 2 * 2 * 2;
-			}
-			tempBeforePoint = 10000 / tempBeforePoint;
-			
-			sprintf(stringTemperature, "%u.%u", afterPoint, tempBeforePoint);
-			pushString("Temperature: ");
-			pushString(stringTemperature);
-			//sprintf(stringTemperature, "%u  ", tempBeforePoint);
-			//pushString(stringTemperature);
-			//push(((beforePoint >> 3) & 0x01) + 0x30);
-			//push(((beforePoint >> 2) & 0x01) + 0x30);
-			//push(((beforePoint >> 1) & 0x01) + 0x30);
-			//push(((beforePoint >> 0) & 0x01) + 0x30);
+			formatTemperatureValue(unparsedTemperature);
+			pushString("Temperature of second sensor: ");
+			pushString((char *)(temperatureValue));
 			pushString("\r\n");
 		}
     }

@@ -1,5 +1,8 @@
 #include "OneWire.h"
 
+volatile char temperatureValue[8];
+const char symbols[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+
 void initializeOneWire()
 {
     SET_WIRE_OUT; // шину на выход
@@ -13,6 +16,10 @@ void initializeOneWire()
         while (!(PIND & (1 << WIRE)));
         _delay_us(420);
     }
+	else
+	{
+		pushString("No response.");
+	}
 }
 
 void sendBitOneWire(uint8_t bit)
@@ -66,4 +73,58 @@ uint8_t readOneWire()
 		value |= readBitOneWire() << i;
 	}
 	return value;
+}
+
+void readROM()
+{
+	pushString("Sensor ID: ");
+	initializeOneWire();
+	sendOneWire(READ_ROM);
+	uint8_t temp = 0;
+	for (uint8_t i = 0; i < 8; i++)
+	{
+		temp = readOneWire();
+		uint8_t biggerPage = temp >> 4 & 0x0F;
+		uint8_t lowerPage = temp & 0x0F;
+		push(symbols[biggerPage]);
+		push(symbols[lowerPage]);
+		push(' ');
+	}
+	pushString("\r\n");
+}
+
+void matchROM(const char id[])
+{
+	sendOneWire(MATCH_ROM);
+	for (uint8_t index = 0; index < 8; index++)
+	{
+		sendOneWire(id[index]);
+	}
+}
+
+void formatTemperatureValue(uint16_t unparsedValue)
+{
+	int8_t integerPart = 0;
+	uint8_t fractionalPart = 0;
+	integerPart = (unparsedValue >> 4) & 0xFF;
+	fractionalPart = unparsedValue & 0x0F;
+	uint8_t denominator = 0;
+	if (unparsedValue & 0x08)
+	{
+		denominator += 2 * 2 * 2;
+	}
+	if (unparsedValue & 0x04)
+	{
+		denominator += 2 * 2;
+	}
+	if (unparsedValue & 0x02)
+	{
+		denominator += 2;
+	}
+	if (unparsedValue & 0x01)
+	{
+		denominator += 1;
+	}
+	fractionalPart = (denominator * 100) / 16;
+	sprintf((char *)(temperatureValue), "%i.%u", integerPart, fractionalPart);
 }
