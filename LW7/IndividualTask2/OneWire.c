@@ -104,10 +104,6 @@ void matchROM(const char id[])
 
 void formatTemperatureValue(uint16_t unparsedValue)
 {
-	for (uint8_t i = 0; i < 8; i++)
-	{
-		temperatureValue[i] = ' ';
-	}
 	int8_t integerPart = 0;
 	uint8_t fractionalPart = 0;
 	integerPart = (unparsedValue >> 4) & 0xFF;
@@ -131,4 +127,12 @@ void formatTemperatureValue(uint16_t unparsedValue)
 	}
 	fractionalPart = (denominator * 100) / 16;
 	sprintf((char *)(temperatureValue), "%i.%u", integerPart, fractionalPart);
+}
+
+void resetTemperatureValue()
+{
+	for (uint8_t i = 0; i < 8; i++)
+	{
+		temperatureValue[i] = ' ';
+	}
 }

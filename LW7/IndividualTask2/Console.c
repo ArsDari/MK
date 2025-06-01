@@ -203,10 +203,6 @@ uint8_t consoleHandler()
 			return CONSOLE_INVALID_ARGUMENT;
 		}
 	}
-	else if (strncmp((const char*)(consoleBufferUSART), "/get_temperature", 16 + WITH_NULL_SYMBOL) == COMPARE_EQUAL)
-	{
-		
-	}
 	else
 	{
 		return CONSOLE_UNKNOWN_COMMAND;

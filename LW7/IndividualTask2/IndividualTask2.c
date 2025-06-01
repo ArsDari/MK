@@ -16,8 +16,6 @@ void formatTemperatureValue(uint16_t);
 volatile uint8_t allowUpdate = 0;
 const char firstSensor[] = {0x28, 0xF1, 0x6E, 0x44, 0xD4, 0xDE, 0x2A, 0x58};
 const char secondSensor[] = {0x28, 0xC7, 0x38, 0x45, 0xD4, 0x86, 0x15, 0x7F};
-const char symbols[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
-char temperatureResponse[MAX_BUFFER_SIZE];
 
 int main(void)
 {
@@ -97,34 +95,49 @@ int main(void)
 		}
 		if (allowUpdate)
 		{
-			char tempString[32];
-			tempString = "1: ";
 			allowUpdate = 0;
 			initializeOneWire();
 			sendOneWire(SKIP_ROM);
 			sendOneWire(CONVERT_TEMPERATURE);
 			_delay_ms(825);
+			
 			initializeOneWire();
 			matchROM(firstSensor);
 			sendOneWire(READ_SCRATCHPAD);
 			uint16_t unparsedTemperature = readOneWire();
 			unparsedTemperature |= readOneWire() << 8;
+			resetTemperatureValue();
 			formatTemperatureValue(unparsedTemperature);
-			memcpy(tempString[3], temperatureValue, 8);
-			temperatureValue[]
+			
+			sendInstruction_LCD(LCD_CLEAR);
+			_delay_ms(2);
+			sendString_LCD("Sensor 1: ");
+			_delay_us(50);
+			sendString_LCD((char *)(temperatureValue));
+			_delay_us(50);
+			
 			pushString("Temperature of first sensor: ");
 			pushString((char *)(temperatureValue));
 			pushString("\r\n");
+			
 			initializeOneWire();
 			matchROM(secondSensor);
 			sendOneWire(READ_SCRATCHPAD);
 			unparsedTemperature = readOneWire();
 			unparsedTemperature |= readOneWire() << 8;
+			resetTemperatureValue();
 			formatTemperatureValue(unparsedTemperature);
+			
+			sendInstruction_LCD(LCD_SET_CURSOR | LCD_SECOND_LINE);
+			_delay_ms(2);
+			sendString_LCD("Sensor 2: ");
+			_delay_us(50);
+			sendString_LCD((char *)(temperatureValue));
+			_delay_us(50);
+			
 			pushString("Temperature of second sensor: ");
 			pushString((char *)(temperatureValue));
 			pushString("\r\n");
-			sendString_LCD();
 		}
 	}
 }

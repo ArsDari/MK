@@ -44,5 +44,6 @@ uint8_t readOneWire();
 void readROM();
 void matchROM(const char[]);
 void formatTemperatureValue(uint16_t);
+void resetTemperatureValue();
 
 #endif

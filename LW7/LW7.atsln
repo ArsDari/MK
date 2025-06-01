@@ -5,13 +5,9 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Task1", "Task1\Task1.cproj", "{DCE6C7E3-EE26-4D79-826B-08594B9AD897}"
 EndProject
-Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "22.04.25", "22.04.25\22.04.25.cproj", "{749257C1-E71B-4671-932E-528A47D1E9A6}"
-EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "IndividualTask1", "IndividualTask1\IndividualTask1.cproj", "{AF6BE188-05DB-4812-8347-D0F1F0DB18D5}"
 EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "IndividualTask2", "IndividualTask2\IndividualTask2.cproj", "{F228B3C0-8C42-456A-8F9A-C6F3449306A6}"
-EndProject
-Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "TestOneWire", "TestOneWire\TestOneWire.cproj", "{27A75A18-F136-4F89-B43A-7CA66B6B8EE4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +19,6 @@ Global
 		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Debug|AVR.Build.0 = Debug|AVR
 		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Release|AVR.ActiveCfg = Release|AVR
 		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Release|AVR.Build.0 = Release|AVR
-		{749257C1-E71B-4671-932E-528A47D1E9A6}.Debug|AVR.ActiveCfg = Debug|AVR
-		{749257C1-E71B-4671-932E-528A47D1E9A6}.Debug|AVR.Build.0 = Debug|AVR
-		{749257C1-E71B-4671-932E-528A47D1E9A6}.Release|AVR.ActiveCfg = Release|AVR
-		{749257C1-E71B-4671-932E-528A47D1E9A6}.Release|AVR.Build.0 = Release|AVR
 		{AF6BE188-05DB-4812-8347-D0F1F0DB18D5}.Debug|AVR.ActiveCfg = Debug|AVR
 		{AF6BE188-05DB-4812-8347-D0F1F0DB18D5}.Debug|AVR.Build.0 = Debug|AVR
 		{AF6BE188-05DB-4812-8347-D0F1F0DB18D5}.Release|AVR.ActiveCfg = Release|AVR
@@ -35,10 +27,6 @@ Global
 		{F228B3C0-8C42-456A-8F9A-C6F3449306A6}.Debug|AVR.Build.0 = Debug|AVR
 		{F228B3C0-8C42-456A-8F9A-C6F3449306A6}.Release|AVR.ActiveCfg = Release|AVR
 		{F228B3C0-8C42-456A-8F9A-C6F3449306A6}.Release|AVR.Build.0 = Release|AVR
-		{27A75A18-F136-4F89-B43A-7CA66B6B8EE4}.Debug|AVR.ActiveCfg = Debug|AVR
-		{27A75A18-F136-4F89-B43A-7CA66B6B8EE4}.Debug|AVR.Build.0 = Debug|AVR
-		{27A75A18-F136-4F89-B43A-7CA66B6B8EE4}.Release|AVR.ActiveCfg = Release|AVR
-		{27A75A18-F136-4F89-B43A-7CA66B6B8EE4}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
