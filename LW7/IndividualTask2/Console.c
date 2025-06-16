@@ -131,7 +131,7 @@ uint8_t consoleHandler()
 				{
 					sendInstruction_LCD(LCD_SET_CURSOR | LCD_SECOND_LINE);
 					_delay_us(50);
-					indexLCD = 0x11;
+					indexLCD = 0x10;
 				}
 				else
 				{
